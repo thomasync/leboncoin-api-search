@@ -1,4 +1,6 @@
 [![build](https://github.com/thomasync/leboncoin-api-search/actions/workflows/build.yml/badge.svg)](https://github.com/thomasync/leboncoin-api-search/actions/workflows/build.yml)
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" height="20" />
+<img src="https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white" height="20" />
 
 # Informations
 
