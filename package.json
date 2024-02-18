@@ -1,7 +1,7 @@
 {
-	"name": "leboncoin-api",
+	"name": "leboncoin-api-search",
 	"version": "0.0.1",
-	"description": "Leboncoin API",
+	"description": "Leboncoin API - Faire des recherches sur leboncoin",
 	"main": "index.js",
 	"scripts": {
 		"test": "jest --config=jest.config.js",

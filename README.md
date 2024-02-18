@@ -16,21 +16,21 @@ Je ne suis pas responsable de l'utilisation que vous en faites, je vous invite �
 # Installation
 
 ```bash
-npm install leboncoin-api
+npm install leboncoin-api-search
 ```
 
 OU
 
 ```bash
-git clone https://github.com/thomasync/leboncoin-api.git
-cd leboncoin-api
+git clone https://github.com/thomasync/leboncoin-api-search.git
+cd leboncoin-api-search
 bun install
 ```
 
 # Utilisation
 
 ```javascript
-import { search, getCategories, getFeaturesFromCategory } from 'leboncoin-api';
+import { search, getCategories, getFeaturesFromCategory } from 'leboncoin-api-search';
 
 // Récuperer toutes les catégories
 const categories = getCategories();
@@ -47,7 +47,7 @@ const features = getFeaturesFromCategory(CATEGORY.CONSOLES);
 ### 1. Recherche d'appartements à Paris entre 50 000 et 100 000 euros
 
 ```javascript
-import { CATEGORY, SORT_BY, SORT_ORDER, getFeaturesFromCategory, search } from 'leboncoin-api';
+import { CATEGORY, SORT_BY, SORT_ORDER, getFeaturesFromCategory, search } from 'leboncoin-api-search';
 
 const typeVente = 'Appartement';
 const featureVente = getFeaturesFromCategory(CATEGORY.VENTES_IMMOBILIERES).find(
@@ -73,7 +73,7 @@ const results = await search({
 ### 2. Recherche de consoles Atari neuve entre 30 et 60 euros
 
 ```javascript
-import { CATEGORY, SORT_BY, SORT_ORDER, search } from 'leboncoin-api';
+import { CATEGORY, SORT_BY, SORT_ORDER, search } from 'leboncoin-api-search';
 
 const results = await search({
 	keywords: 'Atari',
