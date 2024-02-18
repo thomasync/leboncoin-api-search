@@ -1,3 +1,5 @@
+[![build](https://github.com/thomasync/leboncoin-api-search/actions/workflows/build.yml/badge.svg)](https://github.com/thomasync/leboncoin-api-search/actions/workflows/build.yml)
+
 # Informations
 
 Ce projet est une API non officielle pour le site [leboncoin.fr](https://www.leboncoin.fr/). Elle permet de faire des recherches avec une complexité moyenne, je ne garantis pas que toutes les fonctionnalités du site soient disponibles.
