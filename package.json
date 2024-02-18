@@ -2,15 +2,23 @@
 	"name": "leboncoin-api-search",
 	"version": "0.0.2",
 	"description": "Leboncoin API - Faire des recherches sur leboncoin",
-	"main": "index.js",
+	"keywords": [
+		"leboncoin",
+		"api",
+		"search"
+	],
+	"main": "index.ts",
 	"scripts": {
 		"test": "jest --config=jest.config.js",
 		"test:watch": "jest --watchAll --config=jest.config.js",
 		"test:e2e": "bun run tests/e2e/index.ts",
 		"prepare": "husky"
 	},
-	"keywords": [],
-	"author": "thomasync",
+	"author": "thomasync <git@thomasync.dev>",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/thomasync/leboncoin-api-search.git"
+	},
 	"license": "ISC",
 	"devDependencies": {
 		"@types/jest": "^29.5.12",
@@ -18,5 +26,8 @@
 		"husky": "^9.0.11",
 		"jest": "^29.7.0",
 		"ts-jest": "^29.1.2"
+	},
+	"engines": {
+		"node": ">=20.0.0"
 	}
 }
