@@ -12,6 +12,9 @@ import {
 	SimilarResult,
 } from './types';
 
+/**
+ * @todo Not implemented yet
+ */
 export async function searchMultiples(search_filters_input: Search, cycles = 1): Promise<Result<undefined>[]> {
 	const results: Result<undefined>[] = [];
 	let last_id;
@@ -141,6 +144,9 @@ export function _makeFiltersLocations(search_filters_input: Search) {
 	return locations;
 }
 
+/**
+ * @todo Not implemented yet
+ */
 export function _makeFiltersPivotPage(search_filters_input: Search) {
 	const timestamp = Date.now();
 	const price_min = search_filters_input.price_min || search_filters_input.ranges?.price?.min;

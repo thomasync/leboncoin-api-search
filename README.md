@@ -9,6 +9,7 @@ Je ne suis pas responsable de l'utilisation que vous en faites, je vous invite �
 -   [x] Recherche simple
 -   [x] Recherche avancée
 -   [ ] Recherche complexe
+-   [ ] Gestion des pages / offset
 -   [ ] Connexion au compte (pas prévu)
 -   [ ] Gestion du compte (pas prévu)
 -   [ ] Messagerie (pas prévu)

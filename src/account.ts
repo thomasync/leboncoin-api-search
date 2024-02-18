@@ -1,6 +1,9 @@
 import { HEADERS } from './constants';
 import { AccountLoginResultError } from './types';
 
+/**
+ * @todo Not implemented yet
+ */
 export class Account {
 	async login(email: string, password: string) {
 		const login = await fetch('https://auth.leboncoin.fr/api/authenticator/v2/users/login', {
