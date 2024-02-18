@@ -4,6 +4,8 @@ Ce projet est une API non officielle pour le site [leboncoin.fr](https://www.leb
 
 C'est une librarie pour un projet personnel, il n'est pas sûr que je la maintienne à jour.
 
+Je ne suis pas responsable de l'utilisation que vous en faites, je vous invite à lire les [conditions d'utilisation](https://www.leboncoin.fr/conditions-generales-d-utilisation/) du site.
+
 -   [x] Recherche simple
 -   [x] Recherche avancée
 -   [ ] Recherche complexe
@@ -73,7 +75,7 @@ const results = await search({
 ```javascript
 import { CATEGORY, SORT_BY, SORT_ORDER, search } from 'leboncoin-api';
 
-const resultats = await search({
+const results = await search({
 	keywords: 'Atari',
 	only_title: true,
 	category: CATEGORY.CONSOLES,
