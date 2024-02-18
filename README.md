@@ -16,7 +16,8 @@ Je ne suis pas responsable de l'utilisation que vous en faites, je vous invite Ã
 # Installation
 
 ```bash
-npm install leboncoin-api-search
+# npm install leboncoin-api-search
+bun add leboncoin-api-search
 ```
 
 OU
@@ -24,6 +25,7 @@ OU
 ```bash
 git clone https://github.com/thomasync/leboncoin-api-search.git
 cd leboncoin-api-search
+# npm install
 bun install
 ```
 
