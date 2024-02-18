@@ -1,6 +1,6 @@
 {
 	"name": "leboncoin-api-search",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Leboncoin API - Faire des recherches sur leboncoin",
 	"keywords": [
 		"leboncoin",
