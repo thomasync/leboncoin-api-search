@@ -161,14 +161,14 @@ export function _makeFiltersPivotPage(search_filters_input: Search) {
 			search_filters_input.sort_order === SORT_ORDER.ASC && price_min
 				? price_min
 				: price_max
-				? price_max
-				: price_min;
+					? price_max
+					: price_min;
 	}
 
 	return offset
 		? JSON.stringify({
 				es_pivot: offset + '|' + timestamp,
 				page_number: search_filters_input.offset?.page || 0,
-		  })
+			})
 		: undefined;
 }

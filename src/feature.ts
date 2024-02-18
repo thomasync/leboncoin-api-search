@@ -38,6 +38,6 @@ export function _formatFeature(feature: Feature) {
 					feature.values.type !== '' && 'simpleData' in feature.values
 						? feature.values.simpleData
 						: undefined,
-		  }
+			}
 		: {};
 }

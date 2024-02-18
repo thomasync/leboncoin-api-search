@@ -18,7 +18,7 @@ export function getLocationByCode(code: number | string): Location {
 	}
 
 	const foundDepartment = REGIONS.flatMap((region) => region.departments).find(
-		(department) => department?.dId === code
+		(department) => department?.dId === code,
 	);
 	if (foundDepartment) {
 		return {
@@ -76,7 +76,7 @@ export function _getDepartmentByName(name: string): { department: Location | und
 			}
 			return acc;
 		},
-		{ distance: Infinity, department: undefined as Location | undefined }
+		{ distance: Infinity, department: undefined as Location | undefined },
 	);
 
 	return foundDepartment;
@@ -96,7 +96,7 @@ export function _getRegionByName(name: string): { region: Location | undefined; 
 			}
 			return acc;
 		},
-		{ distance: Infinity, region: undefined as Location | undefined }
+		{ distance: Infinity, region: undefined as Location | undefined },
 	);
 
 	return foundRegion;

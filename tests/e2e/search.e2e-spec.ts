@@ -6,7 +6,7 @@ import { getLocationByName } from '../../src/location';
 export async function test_search_1() {
 	const typeVente = 'Appartement';
 	const featureVente = getFeaturesFromCategory(CATEGORY.VENTES_IMMOBILIERES).find(
-		(feature) => feature.label === 'Type de bien'
+		(feature) => feature.label === 'Type de bien',
 	);
 
 	const paramTypeVente = featureVente?.param as string;

@@ -15,7 +15,7 @@ export function getCategories(): FlatCategory[] {
 					id: subcategory.catId,
 					name: subcategory.name,
 					parent: acc.find((c) => c.id === category.catId) as FlatCategory,
-				}))
+				})),
 			);
 		}
 		return acc;
@@ -49,7 +49,7 @@ export function getCategoryByName(name: string): Category | undefined {
 			}
 			return acc;
 		},
-		{ distance: Infinity, category: undefined } as { distance: number; category: FlatCategory | undefined }
+		{ distance: Infinity, category: undefined } as { distance: number; category: FlatCategory | undefined },
 	);
 
 	if (categoryFound.distance > 3) return undefined;
