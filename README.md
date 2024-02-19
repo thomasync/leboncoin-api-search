@@ -1,5 +1,5 @@
 [![build](https://github.com/thomasync/leboncoin-api-search/actions/workflows/build.yml/badge.svg)](https://github.com/thomasync/leboncoin-api-search/actions/workflows/build.yml)
-[![GitHub version](https://badge.fury.io/gh/thomasync%2Fleboncoin-api-search.svg)](https://github.com/thomasync/leboncoin-api-search)
+[![npm version](https://badge.fury.io/js/leboncoin-api-search.svg)](https://badge.fury.io/js/leboncoin-api-search)
 <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" height="20" />
 <img src="https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white" height="20" />
 
