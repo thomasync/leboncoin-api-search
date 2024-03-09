@@ -1,10 +1,4 @@
-import {
-	_makeFilters,
-	_makeFiltersEnums,
-	_makeFiltersLocations,
-	_makeFiltersPivotPage,
-	_makeFiltersRanges,
-} from '../src/search';
+import { _makeFilters, _makeFiltersEnums, _makeFiltersLocations, _makeFiltersRanges } from '../src/search';
 import { OWNER_TYPE, SORT_BY, SORT_ORDER } from '../src/types';
 
 describe('search', () => {
@@ -20,8 +14,8 @@ describe('search', () => {
 					location: { locations: [], shippable: true },
 				},
 				limit: 30,
-				limit_alu: 0,
-				listing_source: 'direct-search',
+				offset: undefined,
+				pivot: undefined,
 				owner_type: 'all',
 				sort_by: 'date',
 				sort_order: 'desc',
@@ -164,96 +158,43 @@ describe('search', () => {
 			expect(locations).toEqual([]);
 		});
 
-		// it('should return array of locations if locations are defined', () => {
-		// 	const locations = _makeFiltersLocations({ locations: [93000] });
-		// 	expect(locations).toEqual(['location_93000']);
-		// });
-
-		// it('should return multiple locations', () => {
-		// 	const locations = _makeFiltersLocations({ locations: ['93000', '0', 'Hérault', 'Paris', '92'] });
-		// 	expect(locations).toEqual([
-		// 		'location_93000',
-		// 		'location_0',
-		// 		'location_Hérault',
-		// 		'location_Paris',
-		// 		'location_92',
-		// 	]);
-		// });
-	});
-
-	xdescribe('_makeFiltersPivotPage', () => {
-		it('should return undefined if no offset', () => {
-			const pivot = _makeFiltersPivotPage({});
-			expect(pivot).toBeUndefined();
-		});
-
-		it('should return undefined if no last_id and sort_by is time', () => {
-			const pivot = _makeFiltersPivotPage({ offset: { page: 1 }, sort_by: SORT_BY.TIME });
-			expect(pivot).toBeUndefined();
-		});
-
-		it('should return undefined if no last_id and sort_by is price', () => {
-			const pivot = _makeFiltersPivotPage({ offset: { page: 1 }, sort_by: SORT_BY.PRICE });
-			expect(pivot).toBeUndefined();
-		});
-
-		it('should return pivot with id if last_id and sort_by is time', () => {
-			const pivot = _makeFiltersPivotPage({ offset: { page: 1, last_id: 9999 }, sort_by: SORT_BY.TIME });
-			expect(pivot).toEqual(JSON.stringify({ es_pivot: 9999 + '|' + Date.now(), page_number: 1 }));
-		});
-
-		it('should return pivot with price_min if no last_id and sort_by is price and sort_order is asc', () => {
-			const pivot = _makeFiltersPivotPage({
-				offset: { page: 1 },
-				sort_by: SORT_BY.PRICE,
-				sort_order: SORT_ORDER.ASC,
-				price_min: 100,
-				price_max: 300,
-			});
-			expect(pivot).toEqual(JSON.stringify({ es_pivot: 100 + '|' + Date.now(), page_number: 1 }));
-		});
-
-		it('should return pivot with price_max if no last_id and sort_by is price and sort_order is asc but price_min is not defined', () => {
-			const pivot = _makeFiltersPivotPage({
-				offset: { page: 1 },
-				sort_by: SORT_BY.PRICE,
-				sort_order: SORT_ORDER.ASC,
-				price_max: 300,
-			});
-			expect(pivot).toEqual(JSON.stringify({ es_pivot: 300 + '|' + Date.now(), page_number: 1 }));
-		});
-
-		it('should return pivot with price_max if no last_id and sort_by is price and sort_order is desc', () => {
-			const pivot = _makeFiltersPivotPage({
-				offset: { page: 1 },
-				sort_by: SORT_BY.PRICE,
-				sort_order: SORT_ORDER.DESC,
-				price_min: 100,
-				price_max: 300,
-			});
-			expect(pivot).toEqual(JSON.stringify({ es_pivot: 300 + '|' + Date.now(), page_number: 1 }));
-		});
-
-		it('should return pivot with price_min if no last_id and sort_by is price and sort_order is desc but price_max is not defined', () => {
-			const pivot = _makeFiltersPivotPage({
-				offset: { page: 1 },
-				sort_by: SORT_BY.PRICE,
-				sort_order: SORT_ORDER.DESC,
-				price_min: 100,
-			});
-			expect(pivot).toEqual(JSON.stringify({ es_pivot: 100 + '|' + Date.now(), page_number: 1 }));
-		});
-
-		it('should take care about price_min and price_max from ranges', () => {
-			const pivot = _makeFiltersPivotPage({
-				offset: { page: 1 },
-				sort_by: SORT_BY.PRICE,
-				sort_order: SORT_ORDER.DESC,
-				ranges: {
-					price: { min: 100, max: 300 },
+		it('should return array of locations if locations are defined', () => {
+			const locations = _makeFiltersLocations({ locations: [93000] });
+			expect(locations).toEqual([
+				{
+					locationType: 'city',
+					zipcode: '93000',
 				},
-			});
-			expect(pivot).toEqual(JSON.stringify({ es_pivot: 300 + '|' + Date.now(), page_number: 1 }));
+			]);
+		});
+
+		it('should return multiple locations', () => {
+			const locations = _makeFiltersLocations({ locations: ['93000', '0', 'Hérault', 'Paris', '92'] });
+			expect(locations).toEqual([
+				{
+					locationType: 'city',
+					zipcode: '93000',
+				},
+				{
+					locationType: 'city',
+					zipcode: '0',
+				},
+				{
+					locationType: 'department',
+					label: 'Hérault',
+					department_id: '34',
+				},
+				{
+					locationType: 'department',
+					label: 'Paris',
+					department_id: '75',
+				},
+				{
+					locationType: 'department',
+					department_id: '92',
+					label: 'Hauts-de-Seine',
+				},
+			]);
 		});
 	});
 });
