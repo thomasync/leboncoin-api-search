@@ -14,7 +14,7 @@ Je ne suis pas responsable de l'utilisation que vous en faites, je vous invite �
 -   [x] Recherche simple
 -   [x] Recherche avancée
 -   [ ] Recherche complexe
--   [ ] Gestion des pages / offset
+-   [x] Gestion des pages / offset
 -   [ ] Connexion au compte (pas prévu)
 -   [ ] Gestion du compte (pas prévu)
 -   [ ] Messagerie (pas prévu)
@@ -38,13 +38,16 @@ bun install
 # Utilisation
 
 ```javascript
-import { search, getCategories, getFeaturesFromCategory } from 'leboncoin-api-search';
+import { search, searchMultiples, getCategories, getFeaturesFromCategory } from 'leboncoin-api-search';
 
 // Récuperer toutes les catégories
 const categories = getCategories();
 
 // Faire une recherche
 const results = search({});
+
+// Faire une recherche sur plusieurs pages
+const results = searchMultiples({}, 10);
 
 // Récupérer toutes les features (filtres) possible pour une catégorie
 const features = getFeaturesFromCategory(CATEGORY.CONSOLES);
@@ -95,6 +98,21 @@ const results = await search({
 	price_min: 30,
 	price_max: 60,
 });
+```
+
+### 3. Récupérer les 1000 premières annonces de chats
+
+```javascript
+import { CATEGORY, searchMultiples } from 'leboncoin-api-search';
+
+const results = await searchMultiples(
+	{
+		category: CATEGORY.ANIMAUX,
+		keywords: 'Chat',
+		limit: 100,
+	},
+	10,
+);
 ```
 
 # Avancé

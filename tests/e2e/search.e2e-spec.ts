@@ -1,4 +1,4 @@
-import { search } from '../../src/search';
+import { search, searchMultiples } from '../../src/search';
 import { getFeaturesFromCategory } from '../../src/feature';
 import { CATEGORY, SORT_BY, SORT_ORDER } from '../../src/types';
 import { getLocationByName } from '../../src/location';
@@ -62,4 +62,51 @@ export async function test_search_2() {
 	}
 
 	throw new Error('No results');
+}
+
+export async function test_search_with_offset() {
+	const results_1 = await search({
+		keywords: 'Chat',
+		category: CATEGORY.ANIMAUX,
+		sort_by: SORT_BY.TIME,
+		sort_order: SORT_ORDER.DESC,
+		limit: 10,
+	});
+
+	const results_2 = await search({
+		keywords: 'Chat',
+		category: CATEGORY.ANIMAUX,
+		sort_by: SORT_BY.TIME,
+		sort_order: SORT_ORDER.DESC,
+		limit: 10,
+		offset: 10,
+	});
+
+	const list_ids = new Set([...results_1.ads, ...results_2.ads].map((ad) => ad.list_id));
+	if (list_ids.size === 20) {
+		return true;
+	}
+
+	throw new Error('Invalid results');
+}
+
+export async function test_search_multiples() {
+	const results = await searchMultiples(
+		{
+			keywords: 'Chat',
+			category: CATEGORY.ANIMAUX,
+			sort_by: SORT_BY.TIME,
+			sort_order: SORT_ORDER.DESC,
+		},
+		3,
+	);
+
+	const list_ids = results.ads.map((ad) => ad.list_id);
+	const hasDuplicates = new Set(list_ids).size !== list_ids.length;
+
+	if (!hasDuplicates) {
+		return true;
+	}
+
+	throw new Error('Has duplicates');
 }

@@ -213,10 +213,8 @@ export interface Search {
 	locations?: number[] | string[];
 	category?: string;
 	limit?: number;
-	offset?: {
-		page: number;
-		last_id?: number;
-	};
+	offset?: number;
+	pivot?: string;
 	owner_type?: OWNER_TYPE;
 	sort_by?: SORT_BY;
 	sort_order?: SORT_ORDER;
@@ -238,11 +236,10 @@ export interface SearchFilters {
 		};
 	};
 	limit: number;
-	limit_alu: number;
-	listing_source: string;
 	owner_type: OWNER_TYPE;
 	sort_by: SORT_BY;
 	sort_order: SORT_ORDER;
+	offset?: number;
 	pivot?: string;
 }
 
@@ -254,6 +251,7 @@ export interface SearchResult<T = undefined> {
 	max_pages: number;
 	referrer_id: string;
 	human_readable_applied_condition: string;
+	pivot?: string;
 	ads: Result<T>[];
 }
 
@@ -328,4 +326,10 @@ export interface Result<T> {
 		is_boosted: boolean;
 		similar: any;
 	};
+}
+
+export interface ResultMultiples {
+	ads: Result<undefined>[];
+	pivot: string;
+	total: number;
 }

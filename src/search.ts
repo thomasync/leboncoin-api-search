@@ -10,31 +10,48 @@ import {
 	SearchFilters,
 	SearchResult,
 	SimilarResult,
+	ResultMultiples,
 } from './types';
 
 /**
  * @todo Not implemented yet
  */
-export async function searchMultiples(search_filters_input: Search, cycles = 1): Promise<Result<undefined>[]> {
-	const results: Result<undefined>[] = [];
-	let last_id;
+export async function searchMultiples(
+	search_filters_input: Search,
+	cycles = 1,
+	delay = 0,
+	callback?: (search_results: SearchResult) => void,
+): Promise<ResultMultiples> {
+	const ads: Result<undefined>[] = [];
+	let last_pivot = '';
 
 	for (let i = 0; i < cycles; i++) {
-		const result = await search({
+		const search_results = await search({
 			...search_filters_input,
-			offset: {
-				page: i,
-				last_id,
-			},
+			pivot: last_pivot,
 		});
-		if (result.ads && result.ads.length > 0) {
-			const keys = Object.keys(result.ads);
-			last_id = result.ads[keys.at(-1) as any]?.list_id;
-			results.push(...result.ads);
+
+		if (search_results.ads.length === 0 || !search_results.pivot || search_results.pivot === last_pivot) {
+			break;
+		}
+
+		last_pivot = search_results.pivot;
+		ads.push(...search_results.ads);
+
+		if (callback) {
+			callback(search_results);
+		}
+
+		if (delay > 0) {
+			await new Promise((resolve) => setTimeout(resolve, delay));
 		}
 	}
 
-	return results;
+	return {
+		ads: ads,
+		total: ads.length,
+		pivot: last_pivot,
+	};
 }
 
 export async function search(search_filters_input: Search): Promise<SearchResult> {
@@ -70,16 +87,12 @@ export function _makeFilters(search_filters_input: Search): SearchFilters {
 			},
 		},
 		limit: search_filters_input.limit || 30,
-		limit_alu: 0,
-		listing_source: 'direct-search',
+		offset: search_filters_input.offset || undefined,
+		pivot: search_filters_input.pivot || undefined,
 		owner_type: search_filters_input.owner_type || OWNER_TYPE.ALL,
 		sort_by: search_filters_input.sort_by || SORT_BY.TIME,
 		sort_order: search_filters_input.sort_order || SORT_ORDER.DESC,
 	};
-
-	if (search_filters_input.offset !== undefined) {
-		search_filters.pivot = _makeFiltersPivotPage(search_filters_input);
-	}
 
 	if (search_filters_input.keywords !== undefined) {
 		search_filters.filters.keywords = {
@@ -142,33 +155,4 @@ export function _makeFiltersLocations(search_filters_input: Search) {
 	});
 
 	return locations;
-}
-
-/**
- * @todo Not implemented yet
- */
-export function _makeFiltersPivotPage(search_filters_input: Search) {
-	const timestamp = Date.now();
-	const price_min = search_filters_input.price_min || search_filters_input.ranges?.price?.min;
-	const price_max = search_filters_input.price_max || search_filters_input.ranges?.price?.max;
-
-	let offset;
-
-	if (search_filters_input.offset?.last_id && search_filters_input.sort_by === SORT_BY.TIME) {
-		offset = search_filters_input.offset.last_id;
-	} else if (!search_filters_input.offset?.last_id && search_filters_input.sort_by === SORT_BY.PRICE) {
-		offset =
-			search_filters_input.sort_order === SORT_ORDER.ASC && price_min
-				? price_min
-				: price_max
-					? price_max
-					: price_min;
-	}
-
-	return offset
-		? JSON.stringify({
-				es_pivot: offset + '|' + timestamp,
-				page_number: search_filters_input.offset?.page || 0,
-			})
-		: undefined;
 }
