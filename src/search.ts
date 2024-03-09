@@ -28,7 +28,12 @@ export async function searchMultiples(
 			pivot: last_pivot,
 		});
 
-		if (search_results.ads.length === 0 || !search_results.pivot || search_results.pivot === last_pivot) {
+		if (
+			!search_results.ads ||
+			search_results.ads.length === 0 ||
+			!search_results.pivot ||
+			search_results.pivot === last_pivot
+		) {
 			break;
 		}
 
@@ -60,6 +65,17 @@ export async function search(search_filters_input: Search): Promise<SearchResult
 
 	const json = (await search.json()) as SearchResult;
 	return json;
+}
+
+export async function searchById(list_id: number): Promise<Result<undefined> | undefined> {
+	const search = await fetch(`https://api.leboncoin.fr/api/adfinder/v1/myads`, {
+		method: 'POST',
+		headers: HEADERS,
+		body: JSON.stringify({ ids: [list_id] }),
+	});
+
+	const json = (await search.json()) as Result<undefined>[];
+	return json.length > 0 ? json[0] : undefined;
 }
 
 export async function similar<T>(id: number, limit = 10): Promise<Result<T>[]> {

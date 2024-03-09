@@ -333,3 +333,64 @@ export interface ResultMultiples {
 	pivot: string;
 	total: number;
 }
+
+export interface User {
+	name: string;
+	registered_at: string;
+	location: string;
+	reply: {
+		in_minutes: number;
+		text: string;
+	};
+	profile_picture: {
+		is_default: boolean;
+		default: boolean;
+		small_url: string;
+		medium_url: string;
+		large_url: string;
+		extra_large_url: string;
+	};
+	badges: {
+		type: string;
+		name: string;
+	}[];
+	total_ads: number;
+	feedback: UserFeedback;
+	presence: UserPresence;
+}
+
+export interface UserPresence {
+	status: string;
+	precenceText: string;
+	lastActivity: string;
+	enabled: boolean;
+}
+
+export interface UserFeedback {
+	overallScore: number;
+	categoryScores: {
+		COMMUNICATION: number;
+		PACKAGE: number;
+		PRODUCT: number;
+		RECOMMENDATION: number;
+		USER_ATTENTION: number;
+	};
+	sourceScores: {
+		MEMBER: number;
+		AUTOMATIC: number;
+	};
+	sourceCounts: {
+		MEMBER: number;
+		AUTOMATIC: number;
+	};
+	receivedCount: number;
+	sellerFeedbackCount: number;
+	buyerFeedbackCount: number;
+}
+
+export interface Presence {
+	reputation: {
+		feedback: UserFeedback;
+	};
+	presence: UserPresence;
+}
