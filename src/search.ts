@@ -13,11 +13,8 @@ import {
 	ResultMultiples,
 } from './types';
 
-/**
- * @todo Not implemented yet
- */
 export async function searchMultiples(
-	search_filters_input: Search,
+	search_filters_input: Omit<Search, 'offset'>,
 	cycles = 1,
 	delay = 0,
 	callback?: (search_results: SearchResult) => void,
